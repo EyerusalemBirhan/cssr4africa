@@ -1,0 +1,191 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>3. API description &#8212; alrosbridge  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="4. Topics" href="topics.html" />
+    <link rel="prev" title="2. Getting Started" href="start.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="topics.html" title="4. Topics"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="start.html" title="2. Getting Started"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">alrosbridge  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="api-description">
+<span id="api"></span><h1>3. API description<a class="headerlink" href="#api-description" title="Permalink to this headline">¶</a></h1>
+<p>All the following calls must be performed from the robot.</p>
+<p><strong>Environment setup API</strong></p>
+<p>In order to get the module to connect to your roscore, you should send it your IP.</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>setMasterURI</strong> ( <code class="docutils literal"><span class="pre">const</span> <span class="pre">std::string&amp;</span></code> <strong>uri</strong> )</p>
+<p>Set current master URI. The IP adress given is from defauth <em>eth0</em> network interface.</p>
+<p><em>param:</em> <strong>uri</strong> - string in form of <code class="docutils literal"><span class="pre">http://&lt;ip&gt;:11311</span></code></p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>setMasterURINet</strong> ( <code class="docutils literal"><span class="pre">const</span> <span class="pre">std::string&amp;</span></code> <strong>uri</strong>, <code class="docutils literal"><span class="pre">const</span> <span class="pre">std::string&amp;</span></code> <strong>network_interface</strong> )</p>
+<p>Set current master URI using a given network interface.</p>
+<p><em>param:</em> <strong>uri</strong> - string in form of <code class="docutils literal"><span class="pre">http://&lt;ip&gt;:11311</span></code></p>
+<p><em>param:</em> <strong>network_interface</strong> - string. For example <code class="docutils literal"><span class="pre">tether</span></code>.</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">const</span> <span class="pre">std::string&amp;</span></code> ROS-Driver::<strong>getMasterURI</strong> ()</p>
+<p>Get current master URI using a given network interface.</p>
+<p><em>return:</em> string in form of <code class="docutils literal"><span class="pre">http://&lt;ip&gt;:11311</span></code></p>
+</li>
+</ul>
+<hr class="docutils" />
+<p><strong>Converters API</strong></p>
+<p>The converters are responsible for operating conversion between NAOqi messages and ROS messages, in accordance with given frequency.</p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">const</span> <span class="pre">std::vector&lt;</span> <span class="pre">std::string</span> <span class="pre">&gt;&amp;</span></code> ROS-Driver::<strong>getAvailableConverters</strong> ()</p>
+<p>Get all registered converters in the module.</p>
+<p><em>return:</em> vector of string of all converter’s topic name</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>registerMemoryConverter</strong> ( <code class="docutils literal"><span class="pre">const</span> <span class="pre">std::string&amp;</span></code> <strong>key</strong>, <code class="docutils literal"><span class="pre">float</span></code> <strong>frequency</strong>, <code class="docutils literal"><span class="pre">int</span></code> <strong>type</strong> )</p>
+<p>Register a new converter for the memory key given.</p>
+<p><em>param:</em> <strong>key</strong> - naoqi memory key. For example <code class="docutils literal"><span class="pre">ALMemory/KeyAdded</span></code>.</p>
+<p><em>param:</em> <strong>frequency</strong> - frequency of the converter (in Hz)</p>
+<p><em>param:</em> <strong>type</strong> - type identifier of the given memory data.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">Available</span> <span class="n">types</span> <span class="n">are</span><span class="p">:</span>
+<span class="o">*</span> <span class="mi">0</span> <span class="o">-</span> <span class="kc">None</span><span class="o">/</span><span class="n">Undefined</span>
+<span class="o">*</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">Int</span>
+<span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">Float</span>
+<span class="o">*</span> <span class="mi">3</span> <span class="o">-</span> <span class="n">String</span>
+<span class="o">*</span> <span class="mi">4</span> <span class="o">-</span> <span class="n">Bool</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>addMemoryConverters</strong> ( <code class="docutils literal"><span class="pre">std::string</span></code> <strong>filePath</strong> )</p>
+<p>Add some new converters for memory keys. This call requires as argument the path to a JSON file (stored on the robot) structured as the following one.
+memKeys and topic must be present and filled. Frequency is optional, and if not there, the default value is 10 Hz.</p>
+<p><em>param:</em> <strong>filePath</strong> - path of the JSON file</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;memKeys&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;KeyName1&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;KeyName2&quot;</span>
+               <span class="p">],</span>
+    <span class="s2">&quot;topic&quot;</span><span class="p">:</span> <span class="s2">&quot;topicName&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;frequency&quot;</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<hr class="docutils" />
+<p><strong>Publishers API</strong></p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>startPublishing</strong> ()</p>
+<p>Start/enable publishing all registered publisher</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>stopPublishing</strong> ()</p>
+<p>Stop/disable publishing all registered publisher</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">const</span> <span class="pre">std::vector&lt;</span> <span class="pre">std::string</span> <span class="pre">&gt;&amp;</span></code> ROS-Driver::<strong>getSubscribedPublishers</strong> ()</p>
+<p>Get all subscribed publishers.</p>
+<p><em>return:</em> vector of string of publisher’s topic name</p>
+</li>
+</ul>
+<hr class="docutils" />
+<p><strong>Recorders API</strong></p>
+<ul>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>startRecording</strong> ()</p>
+<p>Start/enable recording all registered recorder.</p>
+<p>This will record all topics in one ROSbag, named after current date &amp; time. The ROSbag is stored in the exact path where the <strong>ROS-Driver</strong> module is launched (meaning that it will be stored on the robot if it’s launched from here).</p>
+</li>
+<li><p class="first"><code class="docutils literal"><span class="pre">void</span></code> ROS-Driver::<strong>stopRecording</strong> ()</p>
+<p>Stop/disable recording all registered recorder.</p>
+</li>
+</ul>
+<p>You can now have a look to the <a class="reference internal" href="topics.html#topic"><span class="std std-ref">list of available topics</span></a>, or you can go back to the <a class="reference internal" href="index.html#main-menu"><span class="std std-ref">index</span></a>.</p>
+<p>If you want to know more about the API, you can look at the doxygen documentation <a class="reference external" href="./api/index.html">here</a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="start.html"
+                        title="previous chapter">2. Getting Started</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="topics.html"
+                        title="next chapter">4. Topics</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/api.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="topics.html" title="4. Topics"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="start.html" title="2. Getting Started"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">alrosbridge  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Aldebaran, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

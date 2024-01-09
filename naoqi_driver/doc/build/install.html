@@ -1,0 +1,228 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>1. How to install it &#8212; alrosbridge  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="2. Getting Started" href="start.html" />
+    <link rel="prev" title="Description" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="start.html" title="2. Getting Started"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Description"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">alrosbridge  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="how-to-install-it">
+<span id="install"></span><h1>1. How to install it<a class="headerlink" href="#how-to-install-it" title="Permalink to this headline">¶</a></h1>
+<div class="docutils container">
+<button class="toggleable_button label_catkin" onclick="
+function toggle(label) {
+  $('.toggleable_button').css({border: '2px outset', 'border-radius': '4px'});
+  $('.toggleable_button.label_' + label).css({border: '2px inset', 'border-radius': '4px'});
+  $('.toggleable_div').css('display', 'none');
+  $('.toggleable_div.label_' + label).css('display', 'block');
+};
+toggle('catkin')">catkin</button>
+<script>
+
+function toggle(label) {
+  $('.toggleable_button').css({border: '2px outset', 'border-radius': '4px'});
+  $('.toggleable_button.label_' + label).css({border: '2px inset', 'border-radius': '4px'});
+  $('.toggleable_div').css('display', 'none');
+  $('.toggleable_div.label_' + label).css('display', 'block');
+};
+
+$(document).ready(function() {
+  var classList =$('.toggleable_button').attr('class').split(/\s+/);
+  $.each( classList, function(index, item){
+    if (item.substring(0, 5) === 'label') {
+      toggle(item.substring(6));
+    };
+  });
+});
+</script>
+<button class="toggleable_button label_qibuild" onclick="
+function toggle(label) {
+  $('.toggleable_button').css({border: '2px outset', 'border-radius': '4px'});
+  $('.toggleable_button.label_' + label).css({border: '2px inset', 'border-radius': '4px'});
+  $('.toggleable_div').css('display', 'none');
+  $('.toggleable_div.label_' + label).css('display', 'block');
+};
+toggle('qibuild')">qibuild</button>
+<script>
+
+function toggle(label) {
+  $('.toggleable_button').css({border: '2px outset', 'border-radius': '4px'});
+  $('.toggleable_button.label_' + label).css({border: '2px inset', 'border-radius': '4px'});
+  $('.toggleable_div').css('display', 'none');
+  $('.toggleable_div.label_' + label).css('display', 'block');
+};
+
+$(document).ready(function() {
+  var classList =$('.toggleable_button').attr('class').split(/\s+/);
+  $.each( classList, function(index, item){
+    if (item.substring(0, 5) === 'label') {
+      toggle(item.substring(6));
+    };
+  });
+});
+</script>
+</div>
+<div class="docutils container">
+<div class="toggleable_div label_catkin"><p><strong>Binary:</strong></p>
+<p>If you are in a ROS environment, you followed the official <a class="reference external" href="http://wiki.ros.org/ROS/Installation">instructions</a>.</p>
+<p>The easiest therefore is to install the official binary:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install ros-.*-naoqi-driver</span>
+</pre></div>
+</div>
+<p><strong>From source:</strong></p>
+<p>If you want to help develop the bridge or simply want to checkout the latest version, follow the steps below to compile from source. It will use catkin to compile, so in case you are not familiar with, don’t forget to follow the official <a class="reference external" href="http://wiki.ros.org/catkin/Tutorials">catkin tutorials</a>. On Ubuntu, it is:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">mkdir -p ~/catkin_ws/src</span>
+<span class="go">cd ~/catkin_ws/src</span>
+<span class="go">git clone https://github.com/ros-naoqi/naoqi_driver.git</span>
+<span class="gp">#</span> make sure you get all the dependencies installed
+<span class="go">rosdep install -i -y --from-paths ./naoqi_driver</span>
+<span class="gp">#</span> build
+<span class="go">source /opt/ros/indigo/setup.sh</span>
+<span class="go">cd ../ &amp;&amp; catkin_make</span>
+</pre></div>
+</div>
+</div></div>
+<div class="docutils container">
+<div class="toggleable_div label_qibuild"><p><strong>Requirement:</strong></p>
+<p>The naoqi driver module is made to be compiled with qibuild so you first need to install it:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">pip install qibuild</span>
+</pre></div>
+</div>
+<p>To set up your environment and start using qibuild, run the following commands:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">mkdir ~/qibuild_ws</span>
+<span class="go">cd ~/qibuild_ws</span>
+<span class="go">qibuild init</span>
+</pre></div>
+</div>
+<p>If you encounter any issue, please refer to <a class="reference external" href="http://doc.aldebaran.com/qibuild/">qibuild documentation</a>.</p>
+<p>When qibuild compiles, it will only look for dependencies within a toolchain, so one needs to be created.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">#</span> Create the toolchain
+<span class="go">qitoolchain create &lt;tc_name&gt;</span>
+<span class="go">qibuild add-config &lt;tc_name&gt; -t &lt;tc_name&gt;</span>
+</pre></div>
+</div>
+<p>By default, qitoolchains don’t come with ROS packages. So we need to add them manually.</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="gp">#</span> Add a package that will find your <span class="nb">local</span> ROS installation
+<span class="go">cd ~/qibuild_ws</span>
+<span class="go">git clone https://github.com/ros-naoqi/ros-toolchain.git</span>
+<span class="go">./ros-toolchain/update_toolchain.sh local_ros &lt;tc_name&gt;</span>
+</pre></div>
+</div>
+<p>Download the dependencies of the alrosbridge:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd ~/qibuild_ws</span>
+<span class="go">qisrc add https://github.com/aldebaran/gtest.git</span>
+<span class="go">qisrc add https://github.com/aldebaran/libqiprobes.git</span>
+<span class="go">qisrc add https://github.com/aldebaran/libqicore.git</span>
+<span class="go">qisrc add https://github.com/aldebaran/libqi.git</span>
+</pre></div>
+</div>
+<p>Download this project and compile it:</p>
+<div class="highlight-console"><div class="highlight"><pre><span></span><span class="go">cd ~/qibuild_ws</span>
+<span class="go">qisrc add https://github.com/ros-naoqi/naoqi_driver.git</span>
+<span class="go">cd naoqi_driver</span>
+<span class="go">qibuild configure -c &lt;tc_name&gt;</span>
+<span class="go">qibuild make -c &lt;tc_name&gt;</span>
+</pre></div>
+</div>
+<p>Once compilation is over, the resulting binary will be in <em>~/qibuild_ws/naoqi_driver/build-&lt;tcname&gt;/sdk/bin/naoqi_driver_node</em></p>
+<p>If you encounter any compilation issue, (unable to find some dependencies), you might need to install them (through <em>apt-get install</em> for instance)</p>
+<p>Once you successfully compiled the module, you can learn how to use it on the <a class="reference internal" href="start.html#start"><span class="std std-ref">Getting started page</span></a> or you can go back to the <a class="reference internal" href="index.html#main-menu"><span class="std std-ref">index</span></a>.</p>
+</div></div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Description</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="start.html"
+                        title="next chapter">2. Getting Started</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="start.html" title="2. Getting Started"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Description"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">alrosbridge  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Aldebaran, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

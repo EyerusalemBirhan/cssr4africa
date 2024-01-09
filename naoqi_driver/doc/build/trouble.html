@@ -1,0 +1,135 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>5. Troubleshooting &#8212; alrosbridge  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="6. Next steps" href="next.html" />
+    <link rel="prev" title="4. Topics" href="topics.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="next.html" title="6. Next steps"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="topics.html" title="4. Topics"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">alrosbridge  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="troubleshooting">
+<span id="trouble"></span><h1>5. Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-robot-cannot-connect-to-the-roscore">
+<h2>5.1. The robot cannot connect to the roscore<a class="headerlink" href="#the-robot-cannot-connect-to-the-roscore" title="Permalink to this headline">¶</a></h2>
+<p>Try out the following solutions:</p>
+<ul class="simple">
+<li>make sure the roscore is completely started (wait for the “started core service” message)</li>
+<li>check you can ping the roscore IP from the robot</li>
+<li>check the IP you are giving: make sure it is the IP where the roscode run, check that you did not forget <a class="reference external" href="http://">http://</a> and port number</li>
+</ul>
+</div>
+<div class="section" id="ros-gets-delayed-data">
+<h2>5.2. ROS gets delayed data<a class="headerlink" href="#ros-gets-delayed-data" title="Permalink to this headline">¶</a></h2>
+<p>This is due to a difference of time between your robot and your desktop.
+In order to synchronize the two, you need to update the NTP server on both:</p>
+<div class="highlight-sh"><div class="highlight"><pre><span></span>TODO
+</pre></div>
+</div>
+<p>Go back to the <a class="reference internal" href="index.html#main-menu"><span class="std std-ref">index</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Troubleshooting</a><ul>
+<li><a class="reference internal" href="#the-robot-cannot-connect-to-the-roscore">5.1. The robot cannot connect to the roscore</a></li>
+<li><a class="reference internal" href="#ros-gets-delayed-data">5.2. ROS gets delayed data</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="topics.html"
+                        title="previous chapter">4. Topics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="next.html"
+                        title="next chapter">6. Next steps</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/trouble.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="next.html" title="6. Next steps"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="topics.html" title="4. Topics"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">alrosbridge  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2015, Aldebaran, Inc.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>
