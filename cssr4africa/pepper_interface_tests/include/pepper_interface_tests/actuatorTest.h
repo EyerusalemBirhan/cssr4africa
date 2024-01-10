@@ -19,15 +19,15 @@
 typedef actionlib::SimpleActionClient<control_msgs::FollowJointTrajectoryAction> ControlClient;
 typedef boost::shared_ptr<ControlClient> ControlClientPtr;
 
-std::string extract_topic(std::string key);
-std::string extract_mode();
-std::vector<std::string> extract_tests(std::string set);
-void prompt_and_exit(int status);
-void prompt_and_continue();
-void moveToPosition(ControlClientPtr& client, const std::vector<std::string>& joint_names, double duration, 
-                    const std::string& position_name, std::vector<double> positions);
+std::string extractTopic(std::string key);
+std::string extractMode();
+std::vector<std::string> extractTests(std::string set);
+void promptAndExit(int status);
+void promptAndContinue();
+void moveToPosition(ControlClientPtr& client, const std::vector<std::string>& jointNames, double duration, 
+                    const std::string& positionName, std::vector<double> positions);
 
-std::vector<std::vector<double>> calc_duration(std::vector<double> home_position, std::vector<double> max_position, std::vector<double> min_position, std::vector<std::vector<double>> velocity);
+std::vector<std::vector<double>> calculateDuration(std::vector<double> homePosition, std::vector<double> maxPosition, std::vector<double> minPosition, std::vector<std::vector<double>> velocity);
 
 void head(ros::NodeHandle& nh, std::string head_controller);
 void rArm(ros::NodeHandle& nh, std::string rightArm_controller);

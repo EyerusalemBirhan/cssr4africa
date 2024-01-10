@@ -16,7 +16,7 @@
 /* Main function */
 int main(int argc, char **argv){
     // Get the tests to run
-    std::vector<std::string> test_names;
+    std::vector<std::string> testNames;
     
     char start_buf[50];
     
@@ -24,7 +24,7 @@ int main(int argc, char **argv){
     std::tm* start_now = std::localtime(&start_t);
     strftime(start_buf, sizeof(start_buf), "%Y-%m-%d.%X", start_now);
 
-    test_names = extract_tests("sensor");
+    testNames = extractTests("sensor");
 
     string path;
     #ifdef ROS
@@ -40,7 +40,7 @@ int main(int argc, char **argv){
     out_of.open(path.c_str(), ofstream::app);
     if (!out_of.is_open()){
         printf("Unable to open the output file %s\n", path.c_str());
-        prompt_and_exit(1);
+        promptAndExit(1);
     }
     out_of << "[TESTING] ############ SENSORS ############\n\n";
     out_of << "[START TIME] " << start_buf << "\n";
@@ -52,12 +52,12 @@ int main(int argc, char **argv){
     ros::NodeHandle nh;
 
     // Get the mode
-    std::string mode = extract_mode();
+    std::string mode = extractMode();
     
     if (mode == "parallel"){
         // Run each test in a separate thread
         std::vector<std::thread> threads;
-        for (auto test : test_names){
+        for (auto test : testNames){
             if (test == "BackSonar"){
                 threads.push_back(std::thread(backSonar, nh));
             }
@@ -81,7 +81,7 @@ int main(int argc, char **argv){
             }
             else{
                 std::cout << "No test provided. Exiting...\n";
-                prompt_and_exit(1);
+                promptAndExit(1);
             }
         }
         // Wait for all threads to finish
@@ -91,7 +91,7 @@ int main(int argc, char **argv){
     }
     else if (mode == "sequential"){
         // Run each test sequentially
-        for (auto test : test_names){
+        for (auto test : testNames){
             if (test == "BackSonar"){
                 backSonar(nh);
             }
@@ -115,13 +115,13 @@ int main(int argc, char **argv){
             }
             else{
                 std::cout << "No test provided. Exiting...\n";
-                prompt_and_exit(1);
+                promptAndExit(1);
             }
         }
     }
     else{
         std::cout << "No mode provided. Exiting...\n";
-        prompt_and_exit(1);
+        promptAndExit(1);
     }
 
     char end_buf[50];

@@ -6,13 +6,13 @@ int timeDuration = 10;
 /* Test functions */
 void backSonar(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("BackSonar");
+    string topicName = extractTopic("BackSonar");
 
-    ROS_INFO_STREAM("Subscribing to : " << topic_name << "\n" ); // Print the topic name
+    ROS_INFO_STREAM("Subscribing to : " << topicName << "\n" ); // Print the topic name
     ros::Duration(1).sleep();
 
     // Subscribe to the /pepper/sonarback topic and associate it with the callback function
-    ros::Subscriber sub = nh.subscribe(topic_name, 1, backSonarMessageReceived);
+    ros::Subscriber sub = nh.subscribe(topicName, 1, backSonarMessageReceived);
 
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -27,13 +27,13 @@ void backSonar(ros::NodeHandle nh){
 
 void frontSonar(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("FrontSonar");
+    string topicName = extractTopic("FrontSonar");
 
-    ROS_INFO_STREAM("Subscribing to :" << topic_name << "\n"  ); // Print the topic name
+    ROS_INFO_STREAM("Subscribing to :" << topicName << "\n"  ); // Print the topic name
     ros::Duration(1).sleep();
 
     // Create an image transport subscriber
-    ros::Subscriber sub = nh.subscribe(topic_name, 1, frontSonarMessageReceived);
+    ros::Subscriber sub = nh.subscribe(topicName, 1, frontSonarMessageReceived);
 
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -49,14 +49,14 @@ void frontSonar(ros::NodeHandle nh){
 
 void frontCamera(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("FrontCamera");
+    string topicName = extractTopic("FrontCamera");
 
-    ROS_INFO_STREAM("Subscribing to :" << topic_name << "\n"  ); // Print the topic name
+    ROS_INFO_STREAM("Subscribing to :" << topicName << "\n"  ); // Print the topic name
     ros::Duration(1).sleep();
 
     // Create an image transport subscriber
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub = it.subscribe(topic_name, 1, frontCameraMessageReceived);
+    image_transport::Subscriber sub = it.subscribe(topicName, 1, frontCameraMessageReceived);
 
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -74,14 +74,14 @@ void frontCamera(ros::NodeHandle nh){
 
 void bottomCamera(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("BottomCamera");
+    string topicName = extractTopic("BottomCamera");
 
-    ROS_INFO_STREAM("Subscribing to :" << topic_name << "\n"  ); // Print the topic name
+    ROS_INFO_STREAM("Subscribing to :" << topicName << "\n"  ); // Print the topic name
     ros::Duration(1).sleep();
 
     // Create an image transport subscriber
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub = it.subscribe(topic_name, 1, bottomCameraMessageReceived);
+    image_transport::Subscriber sub = it.subscribe(topicName, 1, bottomCameraMessageReceived);
 
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -98,14 +98,14 @@ void bottomCamera(ros::NodeHandle nh){
 
 void stereoCamera(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("StereoCamera");
+    string topicName = extractTopic("StereoCamera");
 
-    ROS_INFO_STREAM("Subscribing to :" << topic_name << "\n"  ); // Print the topic name
+    ROS_INFO_STREAM("Subscribing to :" << topicName << "\n"  ); // Print the topic name
     ros::Duration(1).sleep();
 
     // Create an image transport subscriber
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub = it.subscribe(topic_name, 1, stereoCameraMessageReceived);
+    image_transport::Subscriber sub = it.subscribe(topicName, 1, stereoCameraMessageReceived);
 
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -123,14 +123,14 @@ void stereoCamera(ros::NodeHandle nh){
 
 void depthCamera(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("DepthCamera");
+    string topicName = extractTopic("DepthCamera");
 
-    ROS_INFO_STREAM("Subscribing to :" << topic_name << "\n"  ); // Print the topic name
+    ROS_INFO_STREAM("Subscribing to :" << topicName << "\n"  ); // Print the topic name
     ros::Duration(1).sleep();
 
     // Create an image transport subscriber
     image_transport::ImageTransport it(nh);
-    image_transport::Subscriber sub = it.subscribe(topic_name, 1, depthCameraMessageReceived);
+    image_transport::Subscriber sub = it.subscribe(topicName, 1, depthCameraMessageReceived);
 
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -148,12 +148,12 @@ void depthCamera(ros::NodeHandle nh){
 
 void laserSensor(ros::NodeHandle nh){
     // find the respective topic
-    string topic_name = extract_topic("LaserSensor");
+    string topicName = extractTopic("LaserSensor");
 
-    ROS_INFO_STREAM("Start " << topic_name << " Subscribe Test \n"  ); // Print the topic name
+    ROS_INFO_STREAM("Start " << topicName << " Subscribe Test \n"  ); // Print the topic name
     ros::Duration(1).sleep();
     
-    ros::Subscriber sub = nh.subscribe(topic_name, 1, laserSensorMessageReceived);
+    ros::Subscriber sub = nh.subscribe(topicName, 1, laserSensorMessageReceived);
     
     // Listen for incoming messages and execute the callback function
     ros::Rate rate(30); 
@@ -198,7 +198,7 @@ void backSonarMessageReceived(const sensor_msgs::Range& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
         
         // write on the output file
@@ -250,7 +250,7 @@ void frontSonarMessageReceived(const sensor_msgs::Range& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
         
         // write on the output file
@@ -299,7 +299,7 @@ void frontCameraMessageReceived(const sensor_msgs::ImageConstPtr& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
 
         // write on the output file
@@ -355,7 +355,7 @@ void bottomCameraMessageReceived(const sensor_msgs::ImageConstPtr& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
         
         // write on the output file
@@ -417,7 +417,7 @@ void stereoCameraMessageReceived(const sensor_msgs::ImageConstPtr& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
 
         // write on the output file
@@ -479,7 +479,7 @@ void depthCameraMessageReceived(const sensor_msgs::ImageConstPtr& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
 
         // write on the output file
@@ -566,7 +566,7 @@ void laserSensorMessageReceived(const sensor_msgs::LaserScan& msg) {
         out_of.open(path.c_str(), ofstream::app);
         if (!out_of.is_open()){
             printf("Unable to open the output file %s\n", path.c_str());
-            prompt_and_exit(1);
+            promptAndExit(1);
         }
 
         // write on the output file
@@ -592,24 +592,24 @@ void laserSensorMessageReceived(const sensor_msgs::LaserScan& msg) {
 }
 
 /* Helper Functions */
-void prompt_and_exit(int status){
+void promptAndExit(int status){
     printf("Press any key to continue ... \n");
     getchar();
     exit(status);
 }
 
-void prompt_and_continue(){
+void promptAndContinue(){
     printf("Press any key to proceed ...\n");
     getchar();
 }
 
 /* Extract topic names for the respective simulator or physical robot */
-string extract_topic(string key){
+string extractTopic(string key){
     bool debug = false;   // used to turn debug message on
     
-    std::string conf_file = "actuatorTestConfiguration.ini";  // configuration filename
-    std::string config_path;                                  // configuration path
-    std::string config_path_and_file;                         // configuration path and filename
+    std::string configFileName = "actuatorTestConfiguration.ini";  // configuration filename
+    std::string configPath;                                  // configuration path
+    std::string configPathFile;                         // configuration path and filename
     
     std::string platformKey = "platform";                     // platform key 
     std::string robotTopicKey = "robotTopics";                // robot topic key
@@ -619,36 +619,36 @@ string extract_topic(string key){
     std::string robotTopicValue;                              // robot topic value
     std::string simulatorTopicValue;                          // simulator topic value
     
-    std::string topic_file;                                   // topic filename
-    std::string topic_path;                                   // topic filename path
-    std::string topic_path_and_file;                          // topic with path and file 
+    std::string topicFileName;                                   // topic filename
+    std::string topicPath;                                   // topic filename path
+    std::string topicPathFile;                          // topic with path and file 
 
     std::string topic_value = "";                             // topic value
 
     // Construct the full path of the configuration file
     #ifdef ROS
-        config_path = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
+        configPath = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
     #else
-        config_path = "..";
+        configPath = "..";
     #endif
 
     // set configuration path
-    config_path += "/config/";
-    config_path_and_file = config_path;
-    config_path_and_file += conf_file;
+    configPath += "/config/";
+    configPathFile = configPath;
+    configPathFile += configFileName;
 
-    if (debug) printf("Config file is %s\n", config_path_and_file.c_str());
+    if (debug) printf("Config file is %s\n", configPathFile.c_str());
 
     // Open configuration file
-    std::ifstream conf_if(config_path_and_file.c_str());
-    if (!conf_if.is_open()){
-        printf("Unable to open the config file %s\n", config_path_and_file.c_str());
-        prompt_and_exit(1);
+    std::ifstream configFile(configPathFile.c_str());
+    if (!configFile.is_open()){
+        printf("Unable to open the config file %s\n", configPathFile.c_str());
+        promptAndExit(1);
     }
 
     std::string configLineRead;  // variable to read the line in the file
     // Get key-value pairs from the configuration file
-    while(std::getline(conf_if, configLineRead)){
+    while(std::getline(configFile, configLineRead)){
         std::istringstream iss(configLineRead);
         std::string paramKey, paramValue;
         iss >> paramKey;
@@ -663,38 +663,38 @@ string extract_topic(string key){
 
         else if (paramKey == simulatorTopicKey){ simulatorTopicValue = paramValue;}
     }
-    conf_if.close();
+    configFile.close();
 
     // set the topic file based on the config extracted above
-    if (platformValue == "simulator") { topic_file = simulatorTopicValue; }
-    else if (platformValue == "robot") { topic_file = robotTopicValue; }
+    if (platformValue == "simulator") { topicFileName = simulatorTopicValue; }
+    else if (platformValue == "robot") { topicFileName = robotTopicValue; }
     
-    if (debug) printf("Topic file: %s\n", topic_file.c_str());
+    if (debug) printf("Topic file: %s\n", topicFileName.c_str());
 
     // Construct the full path of the topic file
     #ifdef ROS
-        topic_path = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
+        topicPath = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
     #else
-        topic_path = "..";
+        topicPath = "..";
     #endif
 
     // set topic path    
-    topic_path += "/data/";
-    topic_path_and_file = topic_path;
-    topic_path_and_file += topic_file;
+    topicPath += "/data/";
+    topicPathFile = topicPath;
+    topicPathFile += topicFileName;
 
-    if (debug) printf("Topic file is %s\n", topic_path_and_file.c_str());
+    if (debug) printf("Topic file is %s\n", topicPathFile.c_str());
 
     // Open topic file
-    std::ifstream topic_if(topic_path_and_file.c_str());
-    if (!topic_if.is_open()){
-        printf("Unable to open the topic file %s\n", topic_path_and_file.c_str());
-        prompt_and_exit(1);
+    std::ifstream topicFile(topicPathFile.c_str());
+    if (!topicFile.is_open()){
+        printf("Unable to open the topic file %s\n", topicPathFile.c_str());
+        promptAndExit(1);
     }
 
     std::string topicLineRead;   // variable to read the line in the file
     // Get key-value pairs from the topic file
-    while(std::getline(topic_if, topicLineRead)){
+    while(std::getline(topicFile, topicLineRead)){
         std::istringstream iss(topicLineRead);
         std::string paramKey, paramValue;
         iss >> paramKey;
@@ -707,53 +707,53 @@ string extract_topic(string key){
             break;
         }
     }
-    topic_if.close();
+    topicFile.close();
 
     // verify the topic_value is not empty
     if (topic_value == ""){
         printf("Unable to find a valid topic.\n");
-        prompt_and_exit(1);
+        promptAndExit(1);
     }
     return topic_value;
 }
 
 /* Extract the expected tests to run for the respective actuator or sensor tests */
-std::vector<std::string> extract_tests(std::string set){
+std::vector<std::string> extractTests(std::string set){
     bool debug = false;   // used to turn debug message on
     
-    std::string inp_file;                                  // input filename
-    std::string inp_path;                                  // input path
-    std::string inp_path_and_file;                         // input path and filename
+    std::string inputFileName;                                  // input filename
+    std::string inputPath;                                  // input path
+    std::string inputPathFile;                         // input path and filename
     
-    std::vector<std::string> test_name;
+    std::vector<std::string> testName;
     std::string flag;
 
     if (set == "actuator"){
-        inp_file = "actuatorTestInput.ini";
+        inputFileName = "actuatorTestInput.ini";
     }
     else{
-        inp_file = "sensorTestInput.ini";
+        inputFileName = "sensorTestInput.ini";
     }
 
     // Construct the full path of the input file
     #ifdef ROS
-        inp_path = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
+        inputPath = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
     #else
-        inp_path = "..";
+        inputPath = "..";
     #endif
 
     // set input path
-    inp_path += "/config/";
-    inp_path_and_file = inp_path;
-    inp_path_and_file += inp_file;
+    inputPath += "/config/";
+    inputPathFile = inputPath;
+    inputPathFile += inputFileName;
 
-    if (debug) printf("Input file is %s\n", inp_path_and_file.c_str());
+    if (debug) printf("Input file is %s\n", inputPathFile.c_str());
 
     // Open input file
-    std::ifstream inp_if(inp_path_and_file.c_str());
-    if (!inp_if.is_open()){
-        printf("Unable to open the input file %s\n", inp_path_and_file.c_str());
-        prompt_and_exit(1);
+    std::ifstream inputFile(inputPathFile.c_str());
+    if (!inputFile.is_open()){
+        printf("Unable to open the input file %s\n", inputPathFile.c_str());
+        promptAndExit(1);
     }
 
     std::string inpLineRead;  // variable to read the line in the file
@@ -761,7 +761,7 @@ std::vector<std::string> extract_tests(std::string set){
     std::string paramKey, paramValue; // variables to keep the key value pairs read
 
     // Get key-value pairs from the input file
-    while(std::getline(inp_if, inpLineRead)){
+    while(std::getline(inputFile, inpLineRead)){
         std::istringstream iss(inpLineRead);
     
         iss >> paramKey;
@@ -772,20 +772,20 @@ std::vector<std::string> extract_tests(std::string set){
         trim(paramValue); // trim whitespace
         transform(paramValue.begin(), paramValue.end(), paramValue.begin(), ::tolower); // convert to lower case
 
-        if (paramValue == "true"){ test_name.push_back(paramKey);}
+        if (paramValue == "true"){ testName.push_back(paramKey);}
     }
-    inp_if.close();
+    inputFile.close();
 
-    return test_name;
+    return testName;
 }
 
 // Extract the mode to run the tests
-std::string extract_mode(){
+std::string extractMode(){
     bool debug = false;   // used to turn debug message on
 
-    std::string conf_file = "sensorTestConfiguration.ini";  // configuration filename
-    std::string config_path;                                  // configuration path
-    std::string config_path_and_file;                         // configuration path and filename
+    std::string configFileName = "sensorTestConfiguration.ini";  // configuration filename
+    std::string configPath;                                  // configuration path
+    std::string configPathFile;                         // configuration path and filename
 
     std::string modeKey = "mode";                             // mode key
 
@@ -793,28 +793,28 @@ std::string extract_mode(){
 
     // Construct the full path of the configuration file
     #ifdef ROS
-        config_path = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
+        configPath = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
     #else
-        config_path = "..";
+        configPath = "..";
     #endif
 
     // set configuration path
-    config_path += "/config/";
-    config_path_and_file = config_path;
-    config_path_and_file += conf_file;
+    configPath += "/config/";
+    configPathFile = configPath;
+    configPathFile += configFileName;
 
-    if (debug) printf("Config file is %s\n", config_path_and_file.c_str());
+    if (debug) printf("Config file is %s\n", configPathFile.c_str());
 
     // Open configuration file
-    std::ifstream conf_if(config_path_and_file.c_str());
-    if (!conf_if.is_open()){
-        printf("Unable to open the config file %s\n", config_path_and_file.c_str());
-        prompt_and_exit(1);
+    std::ifstream configFile(configPathFile.c_str());
+    if (!configFile.is_open()){
+        printf("Unable to open the config file %s\n", configPathFile.c_str());
+        promptAndExit(1);
     }
 
     std::string configLineRead;  // variable to read the line in the file
     // Get key-value pairs from the configuration file
-    while(std::getline(conf_if, configLineRead)){
+    while(std::getline(configFile, configLineRead)){
         std::istringstream iss(configLineRead);
         std::string paramKey, paramValue;
         iss >> paramKey;
@@ -825,12 +825,12 @@ std::string extract_mode(){
 
         if (paramKey == modeKey){ modeValue = paramValue;}
     }
-    conf_if.close();
+    configFile.close();
 
     // verify the modeValue is not empty
     if (modeValue == ""){
         printf("Unable to find a valid mode.\n");
-        prompt_and_exit(1);
+        promptAndExit(1);
     }
     return modeValue;
 

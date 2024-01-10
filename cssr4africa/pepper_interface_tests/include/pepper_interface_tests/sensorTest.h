@@ -60,13 +60,13 @@ void laserSensorMessageReceived(const sensor_msgs::LaserScan& msg);
 void stereoCameraMessageReceived(const sensor_msgs::ImageConstPtr& msg);
 
 
-std::vector<string> extract_tests(string key);
-string extract_topic(string set);   
-std::string extract_mode();
+std::vector<string> extractTests(string key);
+string extractTopic(string set);   
+std::string extractMode();
 extern bool output;
 extern int timeDuration;
 
-void prompt_and_exit(int err);
-void prompt_and_continue();
+void promptAndExit(int err);
+void promptAndContinue();
 
 #endif // SENSOR_TEST_H
