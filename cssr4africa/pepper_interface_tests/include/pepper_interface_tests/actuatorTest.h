@@ -35,7 +35,7 @@ void lArm(ros::NodeHandle& nh, std::string leftArm_controller);
 void rHand(ros::NodeHandle& nh, std::string rightHand_controller);
 void lHand(ros::NodeHandle& nh, std::string leftHand_controller);
 void leg(ros::NodeHandle& nh, std::string leg_controller);
-void wheels(ros::NodeHandle& nh);
+void wheels(ros::NodeHandle& nh, std::string wheels_controller);
 
 using namespace boost::algorithm;
 

@@ -44,8 +44,8 @@ int main(int argc, char** argv) {
                 leg(nh, legTopic);
             }
             else if (testName[i] == "Wheels"){
-                std::string wheelsController = extractTopic("Wheels");
-                wheels(nh);
+                std::string wheelTopic = extractTopic("Wheels");
+                wheels(nh, wheelTopic);
             }
         }
     }
@@ -78,8 +78,8 @@ int main(int argc, char** argv) {
                 threads.push_back(std::thread(leg, std::ref(nh), legTopic));
             }
             else if (testName[i] == "Wheels"){
-                std::string wheelsController = extractTopic("Wheels");
-                threads.push_back(std::thread(wheels, std::ref(nh)));
+                std::string wheelTopic = extractTopic("Wheels");
+                threads.push_back(std::thread(wheels, std::ref(nh), wheelTopic));
             }
         }
         for (auto& th : threads) th.join();

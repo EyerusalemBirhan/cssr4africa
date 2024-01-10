@@ -581,7 +581,7 @@ void leg(ros::NodeHandle& nh, std::string controllerName){
 }
 
 // Function to publish a velocity command to a joint
-void publish_velocity(ros::Publisher &pub, geometry_msgs::Twist &msg, ros::Rate &rate, double duration) {
+void publishVelocity(ros::Publisher &pub, geometry_msgs::Twist &msg, ros::Rate &rate, double duration) {
     ros::Time startTime = ros::Time::now();
     ros::Duration waitTime = ros::Duration(duration); 
     ros::Time endTime = startTime + waitTime;
@@ -592,9 +592,7 @@ void publish_velocity(ros::Publisher &pub, geometry_msgs::Twist &msg, ros::Rate 
     }
 }
 
-void wheels(ros::NodeHandle& nh){
-    // find the respective topic
-   std::string topicName = extractTopic("Wheels");
+void wheels(ros::NodeHandle& nh, std::string topicName){
    
    // Create a publisher to publish geometry_msgs::Twist messages on the /pepper/cmd_vel topic
    ros::Publisher pub = nh.advertise<geometry_msgs::Twist>(topicName, 1000, true);
@@ -615,35 +613,35 @@ void wheels(ros::NodeHandle& nh){
    msg.linear.x = 0.0;
 
    // Publish 0 velocity
-   publish_velocity(pub, msg, rate, 1);
+   publishVelocity(pub, msg, rate, 1);
 
    // Publish a fixed positive linear velocity
    ROS_INFO_STREAM("[POSITIVE VELOCITY] Publishing a fixed positive velocity value");
    msg.linear.x = 0.05;
 
    // Publish the positive velocity 
-   publish_velocity(pub, msg, rate, 4);
+   publishVelocity(pub, msg, rate, 4);
 
    // Reset linear velocity to 0
    ROS_INFO_STREAM("[ZERO VELOCITY] Publishing 0 velocity value.");
    msg.linear.x = 0.0;
 
    // Publish 0 velocity 
-   publish_velocity(pub, msg, rate, 2);
+   publishVelocity(pub, msg, rate, 2);
 
    // Publish a fixed negative linear velocity
    ROS_INFO_STREAM("[NEGATIVE VELOCITY] Publishing a fixed negative velocity value");
    msg.linear.x = -0.05;
 
    // Publish the negative velocity 
-   publish_velocity(pub, msg, rate, 4);
+   publishVelocity(pub, msg, rate, 4);
 
    // Reset linear velocity to 0
    ROS_INFO_STREAM("[ZERO VELOCITY] Publishing 0 velocity value.");
    msg.linear.x = 0.0;
 
    // Publish 0 velocity 
-   publish_velocity(pub, msg, rate, 4);
+   publishVelocity(pub, msg, rate, 4);
    
    ROS_INFO_STREAM("[LINEAR VELOCITY END] Publishing linear velocity ended.");
    
@@ -655,35 +653,35 @@ void wheels(ros::NodeHandle& nh){
    msg.angular.z = 0.0;
 
    // Publish 0 velocity 
-   publish_velocity(pub, msg, rate, 2);
+   publishVelocity(pub, msg, rate, 2);
 
    // Publish a fixed positive angular velocity
    ROS_INFO_STREAM("[POSITIVE VELOCITY] Publishing a fixed positive velocity value");
    msg.angular.z = 0.3925;
 
    // Publish the positive velocity 
-   publish_velocity(pub, msg, rate, 4);
+   publishVelocity(pub, msg, rate, 4);
 
    // Reset angular velocity to 0
    ROS_INFO_STREAM("[ZERO VELOCITY] Publishing 0 velocity value.");
    msg.angular.z = 0.0;
 
    // Publish 0 velocity 
-   publish_velocity(pub, msg, rate, 1);
+   publishVelocity(pub, msg, rate, 1);
 
    // Publish a fixed negative angular velocity
    ROS_INFO_STREAM("[NEGATIVE VELOCITY] Publishing a fixed negative velocity value");
    msg.angular.z = -0.3925;
 
    // Publish the negative velocity 
-   publish_velocity(pub, msg, rate, 4);
+   publishVelocity(pub, msg, rate, 4);
 
    // Reset angular velocity to 0
    ROS_INFO_STREAM("[ZERO VELOCITY] Publishing 0 velocity value.");
    msg.angular.z = 0.0;
 
    // Publish 0 velocity 
-   publish_velocity(pub, msg, rate, 4);
+   publishVelocity(pub, msg, rate, 4);
    
    ROS_INFO_STREAM("[ANGULAR VELOCITY END] Publishing angular velocity ended.");
     
