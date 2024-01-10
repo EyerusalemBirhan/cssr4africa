@@ -1,17 +1,17 @@
 # include "pepper_interface_tests/actuatorTest.h"
 
-ControlClientPtr createClient(const std::string& controllerName) {
-    ControlClientPtr actionClient(new ControlClient(controllerName, true));
+ControlClientPtr createClient(const std::string& TopicName) {
+    ControlClientPtr actionClient(new ControlClient(TopicName, true));
     int maxIterations = 5;
 
     for (int iterations = 0; iterations < maxIterations; ++iterations) {
         if (actionClient->waitForServer(ros::Duration(5.0))) {
             return actionClient;
         }
-        ROS_DEBUG("Waiting for the %s controller to come up", controllerName.c_str());
+        ROS_DEBUG("Waiting for the %s controller to come up", TopicName.c_str());
     }
 
-    throw std::runtime_error("Error creating action client for " + controllerName + " controller: Server not available");
+    throw std::runtime_error("Error creating action client for " + TopicName + " controller: Server not available");
 }
 
 /* Extract topic names for the respective simulator or physical robot */
@@ -319,8 +319,8 @@ std::vector<std::vector<double>> calculateDuration(std::vector<double> homePosit
     return duration;
 }
 
-void head(ros::NodeHandle& nh, const std::string controllerName) {
-    ControlClientPtr headClient = createClient(controllerName);
+void head(ros::NodeHandle& nh, const std::string headTopic) {
+    ControlClientPtr headClient = createClient(headTopic);
     std::vector<std::string> jointNames = {"HeadPitch", "HeadYaw"};
     std::vector<double> position(2, 0.0);
     
@@ -361,8 +361,8 @@ void head(ros::NodeHandle& nh, const std::string controllerName) {
     ROS_INFO_STREAM("----------[END HEAD CONTROL TEST]-----------");
 }
 
-void rArm(ros::NodeHandle& nh, std::string controllerName){
-    ControlClientPtr rightArmClient = createClient(controllerName);
+void rArm(ros::NodeHandle& nh, std::string rightArmTopic){
+    ControlClientPtr rightArmClient = createClient(rightArmTopic);
     std::vector<std::string> jointNames = {"RShoulderPitch", "RShoulderRoll",  "RElbowRoll", "RElbowYaw", "RWristYaw"};
     std::vector<double> position(5, 0.0);
     
@@ -403,8 +403,8 @@ void rArm(ros::NodeHandle& nh, std::string controllerName){
     ROS_INFO_STREAM("----------[END RIGHT ARM CONTROL TEST]-----------");
 }
 
-void rHand(ros::NodeHandle& nh, std::string controllerName){
-    ControlClientPtr rightHandClient = createClient(controllerName);
+void rHand(ros::NodeHandle& nh, std::string rightHandTopic){
+    ControlClientPtr rightHandClient = createClient(rightHandTopic);
     std::vector<std::string> jointNames = {"RHand"};
     std::vector<double> position(1, 0.0);
     
@@ -447,8 +447,8 @@ void rHand(ros::NodeHandle& nh, std::string controllerName){
 }
 
 
-void lArm(ros::NodeHandle& nh, std::string controllerName){
-    ControlClientPtr leftArmClient = createClient(controllerName);
+void lArm(ros::NodeHandle& nh, std::string leftArmTopic){
+    ControlClientPtr leftArmClient = createClient(leftArmTopic);
     std::vector<std::string> jointNames = {"LShoulderPitch", "LShoulderRoll", "LElbowRoll", "LElbowYaw", "LWristYaw"};
     std::vector<double> position(5, 0.0);
     
@@ -491,8 +491,8 @@ void lArm(ros::NodeHandle& nh, std::string controllerName){
     ROS_INFO_STREAM("----------[END LEFT ARM CONTROL TEST]-----------");
 }
 
-void lHand(ros::NodeHandle& nh, std::string controllerName){
-    ControlClientPtr leftHandClient = createClient(controllerName);
+void lHand(ros::NodeHandle& nh, std::string leftHandTopic){
+    ControlClientPtr leftHandClient = createClient(leftHandTopic);
     std::vector<std::string> jointNames = {"LHand"};
     std::vector<double> position(1, 0.0);
     
@@ -534,8 +534,8 @@ void lHand(ros::NodeHandle& nh, std::string controllerName){
     ROS_INFO_STREAM("----------[END LEFT HAND CONTROL TEST]-----------");
 }
 
-void leg(ros::NodeHandle& nh, std::string controllerName){
-    ControlClientPtr legClient = createClient(controllerName);
+void leg(ros::NodeHandle& nh, std::string legTopic){
+    ControlClientPtr legClient = createClient(legTopic);
     std::vector<std::string> jointNames = {"HipPitch", "HipRoll", "KneePitch"};
     std::vector<double> position(3, 0.0);
     
@@ -592,10 +592,10 @@ void publishVelocity(ros::Publisher &pub, geometry_msgs::Twist &msg, ros::Rate &
     }
 }
 
-void wheels(ros::NodeHandle& nh, std::string topicName){
+void wheels(ros::NodeHandle& nh, std::string wheelTopic){
    
    // Create a publisher to publish geometry_msgs::Twist messages on the /pepper/cmd_vel topic
-   ros::Publisher pub = nh.advertise<geometry_msgs::Twist>(topicName, 1000, true);
+   ros::Publisher pub = nh.advertise<geometry_msgs::Twist>(wheelTopic, 1000, true);
 
    // Set the publishing rate to 50 Hz
    ros::Rate rate(50); 

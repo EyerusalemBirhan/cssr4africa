@@ -29,13 +29,13 @@ void moveToPosition(ControlClientPtr& client, const std::vector<std::string>& jo
 
 std::vector<std::vector<double>> calculateDuration(std::vector<double> homePosition, std::vector<double> maxPosition, std::vector<double> minPosition, std::vector<std::vector<double>> velocity);
 
-void head(ros::NodeHandle& nh, std::string head_controller);
-void rArm(ros::NodeHandle& nh, std::string rightArm_controller);
-void lArm(ros::NodeHandle& nh, std::string leftArm_controller);
-void rHand(ros::NodeHandle& nh, std::string rightHand_controller);
-void lHand(ros::NodeHandle& nh, std::string leftHand_controller);
-void leg(ros::NodeHandle& nh, std::string leg_controller);
-void wheels(ros::NodeHandle& nh, std::string wheels_controller);
+void head(ros::NodeHandle& nh, std::string headTopic);
+void rArm(ros::NodeHandle& nh, std::string rightArmTopic);
+void lArm(ros::NodeHandle& nh, std::string leftArmTopic);
+void rHand(ros::NodeHandle& nh, std::string rightHandTopic);
+void lHand(ros::NodeHandle& nh, std::string leftHandTopic);
+void leg(ros::NodeHandle& nh, std::string legTopic);
+void wheels(ros::NodeHandle& nh, std::string wheelTopic);
 
 using namespace boost::algorithm;
 
