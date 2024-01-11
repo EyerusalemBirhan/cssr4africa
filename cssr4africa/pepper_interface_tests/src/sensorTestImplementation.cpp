@@ -1,3 +1,20 @@
+/* sensorTestImplementation.cpp
+*
+* Author: Yohannes Tadesse Haile and Mihirteab Taye Hordofa 
+* Date: January 11, 2024
+* Version: v1.0
+*
+* Copyright (C) 2023 CSSR4Africa Consortium
+*
+* This project is funded by the African Engineering and Technology Network (Afretec)
+* Inclusive Digital Transformation Research Grant Programme.
+*
+* Website: www.cssr4africa.org
+*
+* This program comes with ABSOLUTELY NO WARRANTY.
+*/
+
+
 #include "pepper_interface_tests/sensorTest.h"
 
 bool output = true;
@@ -166,6 +183,7 @@ void laserSensor(ros::NodeHandle nh){
         rate.sleep();
     }
 }
+
 
 /* Call back functions for each sensor test */
 // Callback function to process the received sonar message

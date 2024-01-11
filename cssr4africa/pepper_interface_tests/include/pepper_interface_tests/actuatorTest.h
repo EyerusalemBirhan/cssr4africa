@@ -3,7 +3,6 @@
 
 #include <ros/ros.h>
 #include <ros/package.h>
-#include <std_msgs/Float64.h>
 #include <actionlib/client/simple_action_client.h>
 #include <control_msgs/FollowJointTrajectoryAction.h>
 #include <thread>

@@ -1,3 +1,20 @@
+/* actuatorTestImplementation.cpp
+*
+* Author: Yohannes Tadesse Haile and Mihirteab Taye Hordofa 
+* Date: January 11, 2024
+* Version: v1.0
+*
+* Copyright (C) 2023 CSSR4Africa Consortium
+*
+* This project is funded by the African Engineering and Technology Network (Afretec)
+* Inclusive Digital Transformation Research Grant Programme.
+*
+* Website: www.cssr4africa.org
+*
+* This program comes with ABSOLUTELY NO WARRANTY.
+*/
+
+
 # include "pepper_interface_tests/actuatorTest.h"
 
 ControlClientPtr createClient(const std::string& TopicName) {
@@ -294,26 +311,13 @@ std::vector<std::vector<double>> calculateDuration(std::vector<double> homePosit
     // Calculate the duration for each joint check if the velocity is 0 or not
     for (int i = 0; i < homePosition.size(); ++i){
         // Calculate the duration for the first part of the trajectory
-        if (velocity[i][0] != 0){
-            duration[i][0] = std::fabs(minPosition[i] - homePosition[i]) / velocity[i][0];
-        }
-        else{
-            duration[i][0] = 3.0;
-        }
+        duration[i][0] = std::fabs(minPosition[i] - homePosition[i]) / velocity[i][0];
+        
         // Calculate the duration for the second part of the trajectory
-        if (velocity[i][1] != 0){
-            duration[i][1] = std::fabs(maxPosition[i] - minPosition[i]) / velocity[i][1];
-        }
-        else{
-            duration[i][1] = 3.0;
-        }
+        duration[i][1] = std::fabs(maxPosition[i] - minPosition[i]) / velocity[i][1];
+        
         // Calculate the duration for the third part of the trajectory
-        if (velocity[i][2] != 0){
-            duration[i][2] = std::fabs(homePosition[i] - maxPosition[i]) / velocity[i][2];
-        }
-        else{
-            duration[i][2] = 3.0;
-        }
+        duration[i][2] = std::fabs(homePosition[i] - maxPosition[i]) / velocity[i][2];   
     }
 
     return duration;
@@ -600,7 +604,6 @@ void wheels(ros::NodeHandle& nh, std::string wheelTopic){
    // Set the publishing rate to 50 Hz
    ros::Rate rate(50); 
 
-   int i = 1; // create iterator variable
    // Create a Twist message object
    geometry_msgs::Twist msg;
    
