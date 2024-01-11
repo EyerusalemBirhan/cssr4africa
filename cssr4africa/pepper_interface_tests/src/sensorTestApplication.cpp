@@ -58,25 +58,25 @@ int main(int argc, char **argv){
         // Run each test in a separate thread
         std::vector<std::thread> threads;
         for (auto test : testNames){
-            if (test == "BackSonar"){
+            if (test == "backsonar"){
                 threads.push_back(std::thread(backSonar, nh));
             }
-            else if (test == "FrontSonar"){
+            else if (test == "frontsonar"){
                 threads.push_back(std::thread(frontSonar, nh));
             }
-            else if (test == "FrontCamera"){
+            else if (test == "frontcamera"){
                 threads.push_back(std::thread(frontCamera, nh));
             }
-            else if (test == "BottomCamera"){
+            else if (test == "bottomcamera"){
                 threads.push_back(std::thread(bottomCamera, nh));
             }
-            else if (test == "DepthCamera"){
+            else if (test == "depthcamera"){
                 threads.push_back(std::thread(depthCamera, nh));
             }
-            else if (test == "LaserSensor"){
+            else if (test == "lasersensor"){
                 threads.push_back(std::thread(laserSensor, nh));
             }
-            else if (test == "StereoCamera"){
+            else if (test == "stereocamera"){
                 threads.push_back(std::thread(stereoCamera, nh));
             }
             else{
@@ -92,25 +92,25 @@ int main(int argc, char **argv){
     else if (mode == "sequential"){
         // Run each test sequentially
         for (auto test : testNames){
-            if (test == "BackSonar"){
+            if (test == "backsonar"){
                 backSonar(nh);
             }
-            else if (test == "FrontSonar"){
+            else if (test == "frontsonar"){
                 frontSonar(nh);
             }
-            else if (test == "FrontCamera"){
+            else if (test == "frontcamera"){
                 frontCamera(nh);
             }
-            else if (test == "BottomCamera"){
+            else if (test == "bottomcamera"){
                 bottomCamera(nh);
             }
-            else if (test == "DepthCamera"){
+            else if (test == "depthcamera"){
                 depthCamera(nh);
             }
-            else if (test == "LaserSensor"){
+            else if (test == "lasersensor"){
                 laserSensor(nh);
             }
-            else if (test == "StereoCamera"){
+            else if (test == "stereocamera"){
                 stereoCamera(nh);
             }
             else{

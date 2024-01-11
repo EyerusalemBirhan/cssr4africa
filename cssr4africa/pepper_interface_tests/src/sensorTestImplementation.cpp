@@ -771,6 +771,7 @@ std::vector<std::string> extractTests(std::string set){
         
         trim(paramValue); // trim whitespace
         transform(paramValue.begin(), paramValue.end(), paramValue.begin(), ::tolower); // convert to lower case
+        transform(paramKey.begin(), paramKey.end(), paramKey.begin(), ::tolower); // convert to lower case
 
         if (paramValue == "true"){ testName.push_back(paramKey);}
     }
@@ -822,6 +823,10 @@ std::string extractMode(){
         std::getline(iss, paramValue);
         iss >> paramValue;
         trim(paramValue);
+
+        // To lower case
+        transform(paramKey.begin(), paramKey.end(), paramKey.begin(), ::tolower);
+        transform(paramValue.begin(), paramValue.end(), paramValue.begin(), ::tolower);
 
         if (paramKey == modeKey){ modeValue = paramValue;}
     }
