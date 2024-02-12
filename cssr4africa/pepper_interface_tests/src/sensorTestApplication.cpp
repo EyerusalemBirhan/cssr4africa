@@ -191,6 +191,7 @@ int main(int argc, char **argv){
     }
     else if (mode == "sequential"){
         // Run each test sequentially
+        frontCameraCompressed(nh);
         for (auto test : testNames){
             if (test == "backsonar"){
                 backSonar(nh);

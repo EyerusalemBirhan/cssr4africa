@@ -20,7 +20,7 @@
 std::ofstream outFile;
 int totalSamples = 0;
 bool output = true;
-int timeDuration = 10;
+int timeDuration = 120;
 
 /* Test functions */
 void backSonar(ros::NodeHandle nh){
@@ -64,6 +64,22 @@ void frontSonar(ros::NodeHandle nh){
         rate.sleep();  
     }
     rate.sleep();
+}
+
+void frontCameraCompressed(ros::NodeHandle nh){
+    ros::Subscriber sub = nh.subscribe("/naoqi_driver/camera/front/image_raw/compressed", 1, frontCameraCompressedMessageReceived);
+
+    // Listen for incoming messages and execute the callback function
+    ros::Rate rate(30); 
+    ros::Time startTime = ros::Time::now(); // start now
+    ros::Duration waitTime = ros::Duration(timeDuration);  
+    ros::Time endTime = startTime + waitTime;  
+    
+    while(ros::ok() && ros::Time::now() < endTime) {
+        ros::spinOnce();
+        rate.sleep();
+    }
+    cv::destroyWindow("Front Camera");
 }
 
 void frontCamera(ros::NodeHandle nh){
@@ -653,6 +669,23 @@ void frontCameraMessageReceived(const sensor_msgs::ImageConstPtr& msg) {
     cv::imshow("Front Camera", img);
 
     cv::waitKey(30);
+}
+
+void frontCameraCompressedMessageReceived(const sensor_msgs::CompressedImageConstPtr& msg){
+    try
+    {
+        // Convert the compressed image message to a cv::Mat
+        cv::Mat image = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8)->image;
+
+        // Display the image using OpenCV
+        cv::imshow("View", image);
+        cv::waitKey(30); // Wait for a key press
+    }
+    catch (cv_bridge::Exception& e)
+    {
+        ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->format.c_str());
+    }
+
 }
 
 // Callback function to process the received bottom camera image message

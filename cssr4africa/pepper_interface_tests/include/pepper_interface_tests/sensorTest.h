@@ -8,6 +8,7 @@
 # include <sensor_msgs/JointState.h>
 # include <sensor_msgs/LaserScan.h>
 # include <sensor_msgs/Imu.h>
+#include <sensor_msgs/CompressedImage.h>
 # include <image_transport/image_transport.h>
 # include <opencv2/highgui/highgui.hpp>
 # include <cv_bridge/cv_bridge.h>
@@ -43,6 +44,7 @@ void jointState(ros::NodeHandle nh);
 void odom(ros::NodeHandle nh);
 void imu(ros::NodeHandle nh);
 void speech(ros::NodeHandle nh);
+void frontCameraCompressed(ros::NodeHandle nh);
 
 /* Call back functions executed when a sensor data arrived */
 void backSonarMessageReceived(const sensor_msgs::Range& msg);
@@ -56,6 +58,7 @@ void microphoneMessageReceived(const naoqi_driver::AudioCustomMsg& msg);
 void jointStateMessageReceived(const sensor_msgs::JointState& msg);
 void odomMessageReceived(const nav_msgs::Odometry& msg);
 void imuMessageReceived(const sensor_msgs::Imu& msg);
+void frontCameraCompressedMessageReceived(const sensor_msgs::CompressedImageConstPtr& msg);
 
 std::vector<string> extractTests(string key);
 string extractTopic(string set);   
