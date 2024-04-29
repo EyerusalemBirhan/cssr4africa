@@ -30,18 +30,18 @@
 
 * Key | Value
 * --- | ---
-* BackSonar     |   True
-* FrontSonar    |   True    
-* BottomCamera  |   True
-* FrontCamera   |   True
-* DepthCamera   |   True
-* StereoCamera  |   True
-* LaserSensor   |   True
-* Microphone    |   True
-* JointState    |   True
-* Odometry      |   True
-* IMU           |   True
-* Speech        |   True
+* BackSonar     |   true
+* FrontSonar    |   true    
+* BottomCamera  |   true
+* FrontCamera   |   true
+* DepthCamera   |   true
+* StereoCamera  |   true
+* LaserSensor   |   true
+* Microphone    |   true
+* JointState    |   true
+* Odometry      |   true
+* IMU           |   true
+* Speech        |   true
 ...
 * Subscribed Topics and Message Types
 *
@@ -50,13 +50,11 @@
 * /naoqi_driver/camera/front/image_raw          sensor_msgs/Image
 * /naoqi_driver/camera/bottom/image_raw         sensor_msgs/Image
 * /naoqi_driver/camera/depth/image_raw          sensor_msgs/Image
-* /naoqi_driver/camera/stereo/image_raw         sensor_msgs/Image
-* /pepper/laser_2                               sensor_msgs/LaserScan
-* /pepper/microphone/naoqi_microphone           naoqi_driver/AudioCustomMsg
-* /pepper/joint_states                          sensor_msgs/JointState
-* /pepper/odom                                  nav_msgs/Odometry
-* /pepper/imu                                   sensor_msgs/Imu
-* /pepper/naoqi_speech/speech                   std_msgs/String
+* /naoqi_driver/laser                           sensor_msgs/LaserScan
+* /naoqi_driver/audio                           naoqi_driver/AudioCustomMsg
+* /naoqi_driver/joint_states                    sensor_msgs/JointState
+* /naoqi_driver/odom                            nav_msgs/Odometry
+* /naoqi_driver/imu                             sensor_msgs/Imu
 
 * /pepper/sonar_back                            sensor_msgs/Range
 * /pepper/sonar_front                           sensor_msgs/Range
@@ -64,10 +62,12 @@
 * /pepper/camera/bottom/image_raw               sensor_msgs/Image
 * /pepper/camera/depth/image_raw                sensor_msgs/Image
 * /pepper/laser_2                               sensor_msgs/LaserScan
+* /joint_states                                 sensor_msgs/JointState
+* /pepper/odom                                  nav_msgs/Odometry
 ...
 * Published Topics and Message Types
+* /naoqi_driver/speech                          std_msgs/String
 *
-* None
 ...
 * Input Data Files
 *
@@ -76,7 +76,12 @@
 ...
 * Output Data Files
 *
-* sensorTestOutput.dat
+* sensorTestOutput.dat, 
+* frontCameraOutput.mp4,
+* bottomCameraOutput.mp4,
+* depthCameraOutput.mp4,
+* stereoCameraOutput.mp4,
+* microphoneOutput.wav
 ...
 * Configuration Files
 *
@@ -90,164 +95,36 @@
 *
 * Author: Yohannes Tadesse Haile, Carnegie Mellon University Africa
 * Email: yohanneh@andrew.cmu.edu
-* Date: January 11, 2024
+* Date: March 19, 2024
 * Version: v1.0
 *
 */
-
 
 # include "pepper_interface_tests/sensorTest.h"
 
 /* Main function */
 int main(int argc, char **argv){
-    // Get the tests to run
-    std::vector<std::string> testNames;
-    
-    char start_buf[50];
-    
-    std::time_t start_t = std::time(0);
-    std::tm* start_now = std::localtime(&start_t);
-    strftime(start_buf, sizeof(start_buf), "%Y-%m-%d.%X", start_now);
-
-    testNames = extractTests("sensor");
-
-    string path;
-    #ifdef ROS
-        path = ros::package::getPath(ROS_PACKAGE_NAME).c_str();
-    #else
-        path = "..";
-    #endif
-    
-    // complete the path of the output file
-    path += "/data/sensorTestOutput.dat";
-    
-    std::ofstream out_of;
-    out_of.open(path.c_str(), ofstream::app);
-    if (!out_of.is_open()){
-        printf("Unable to open the output file %s\n", path.c_str());
-        promptAndExit(1);
-    }
-    out_of << "[TESTING] ############ SENSORS ############\n\n";
-    out_of << "[START TIME] " << start_buf << "\n";
-    
-    out_of.close();
-    
     // Initialize the ROS node
     ros::init(argc, argv, "sensorTest");
     ros::NodeHandle nh;
 
-    // Get the mode
+    std::vector<std::string> testNames = extractTests("sensor");
     std::string mode = extractMode();
+
+    std::string path = getOutputFilePath();
+
+    std::ofstream out_of;
+    initializeOutputFile(out_of, path);
     
-    if (mode == "parallel"){
-        // Run each test in a separate thread
-        std::vector<std::thread> threads;
-        for (auto test : testNames){
-            if (test == "backsonar"){
-                threads.push_back(std::thread(backSonar, nh));
-            }
-            else if (test == "frontsonar"){
-                threads.push_back(std::thread(frontSonar, nh));
-            }
-            else if (test == "frontcamera"){
-                threads.push_back(std::thread(frontCamera, nh));
-            }
-            else if (test == "bottomcamera"){
-                threads.push_back(std::thread(bottomCamera, nh));
-            }
-            else if (test == "depthcamera"){
-                threads.push_back(std::thread(depthCamera, nh));
-            }
-            else if (test == "lasersensor"){
-                threads.push_back(std::thread(laserSensor, nh));
-            }
-            else if (test == "stereocamera"){
-                threads.push_back(std::thread(stereoCamera, nh));
-            }
-            else if (test == "microphone"){
-                threads.push_back(std::thread(microphone, nh));
-            }
-            else if (test == "jointstate"){
-                threads.push_back(std::thread(jointState, nh));
-            }
-            else if (test == "odometry"){
-                threads.push_back(std::thread(odom, nh));
-            }
-            else if (test == "imu"){
-                threads.push_back(std::thread(imu, nh));
-            }
-            else if (test == "speech"){
-                threads.push_back(std::thread(speech, nh));
-            }
-            else{
-                std::cout << "No test provided. Exiting...\n";
-                promptAndExit(1);
-            }
-        }
-        // Wait for all threads to finish
-        for (auto& th : threads){
-            th.join();
-        }
-    }
-    else if (mode == "sequential"){
-        // Run each test sequentially
-        for (auto test : testNames){
-            if (test == "backsonar"){
-                backSonar(nh);
-            }
-            else if (test == "frontsonar"){
-                frontSonar(nh);
-            }
-            else if (test == "frontcamera"){
-                frontCamera(nh);
-            }
-            else if (test == "bottomcamera"){
-                bottomCamera(nh);
-            }
-            else if (test == "depthcamera"){
-                depthCamera(nh);
-            }
-            else if (test == "lasersensor"){
-                laserSensor(nh);
-            }
-            else if (test == "stereocamera"){
-                stereoCamera(nh);
-            }
-            else if (test == "microphone"){
-                microphone(nh);
-            }
-            else if (test == "jointstate"){
-                jointState(nh);
-            }
-            else if (test == "odometry"){
-                odom(nh);
-            }
-            else if (test == "imu"){
-                imu(nh);
-            }
-            else if (test == "speech"){
-                speech(nh);
-            }
-            else{
-                std::cout << "No test provided. Exiting...\n";
-                promptAndExit(1);
-            }
-        }
-    }
-    else{
-        std::cout << "No mode provided. Exiting...\n";
+    if (mode == "parallel") {
+        executeTestsInParallel(testNames, nh);
+    } else if (mode == "sequential") {
+        executeTestsSequentially(testNames, nh);
+    } else {
+        std::cerr << "Invalid mode. Please check the mode in the configuration file.\n";
         promptAndExit(1);
     }
 
-    char end_buf[50];
-    
-    std::time_t end_t = std::time(0);
-    std::tm* end_now = std::localtime(&end_t);
-    strftime(end_buf, sizeof(end_buf), "%Y-%m-%d.%X", end_now);
-
-    out_of.open(path.c_str(), ofstream::app);    
-    out_of << "[END TIME] " << end_buf << "\n\n";
-    out_of.close();
-
+    finalizeOutputFile(out_of, path);
     return 0;
 }
